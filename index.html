@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="script.js"></script>
+</head>
+
+<style>
+    body {
+        padding: 0%;
+        margin: 0%;
+        font-size: 1.2rem;
+        font-family: sans-serif;
+    }
+
+    #map {
+        height: 200px;
+        width: 100%;
+    }
+
+    .allContent {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    header {
+        display: flex;
+        justify-content: center;
+        background: red;
+        color: white;
+    }
+
+    .searchSec {
+        padding: 20px;
+        font-size: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+    }
+
+    .inputandbtn {
+        background: red;
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+    }
+
+    .searchSec input {
+        font-size: 2rem;
+        padding-left: 10px;
+        border: none;
+    }
+
+    .searchSec input::placeholder {
+        font-size: 1rem;
+        border: none;
+
+    }
+
+    .searchSec input[type=button] {
+        background-color: black;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.3rem;
+    }
+
+    .ipInputSec{
+        display: flex;
+    }
+     .afterMainSec {
+        padding: 10px;
+    }
+
+    .afterMainSec {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .showIPSec {
+        display: flex;
+        gap: 10px;
+
+    }
+
+    .sectwoallmaincontent {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .secTwoMain {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 20px;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .secTwo {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
+    }
+
+    .secTwo1 {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .secThree {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .secThree1 {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .secFiveMain {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .mainBox {
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    @media(max-width:540px) {
+        .searchSec {
+            font-size: 1rem;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .searchSec input {
+            width: 8em;
+        }
+
+        .searchSec input[type=button] {
+
+            font-size: 1rem;
+            width: 5em;
+        }
+
+        .secTwoMain {
+            grid-template-columns: repeat(2, 1fr);
+
+        }
+    }
+</style>
+
+<body>
+    <div class="mainSection">
+        <div class="allContent">
+            <div class="mainContent">
+                <div class="mainContent1">
+                    <div class="searchSec">
+                        <div class="ipInputSec">
+                            <label for="searchIP">
+                                <b>MY Public IP ADDRESS : </b>
+                            </label>
+                            <div class="inputandbtn">
+                                <input type="text" id="ip" name="ip" placeholder="Search...">
+                            </div>
+                        </div>
+                        <div class="getDataBtn">
+                            <input type="button" onclick="getGeoLocation()" value="Get Data">
+                        </div>
+                    </div>
+
+                    <!-- ============================== -->
+
+                    <div class="afterClickSection">
+                        <div class="afterMainSec">
+                            <!-- ---------------- -->
+                            <div class="sectwoallmaincontent">
+                                <div class="secTwo">
+                                    <div class="secTwoMain">
+                                        <div class="secTwo1">
+                                            <label for="lati"><b> Lat : </b> </label>
+                                            <div id="lat">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="secTwo1">
+                                            <label for="city"> <b>City :</b> </label>
+                                            <div id="city">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="secTwo1">
+                                            <label for="org"><b> organisation :</b> </label>
+                                            <div id="organisation">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="secTwo1">
+                                            <label for="long"><b> Long :</b> </label>
+                                            <div id="long">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="secTwo1">
+                                            <label for="region"><b> Region :</b> </label>
+                                            <div id="region">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="secTwo1">
+                                            <label for="timezone"><b> Timezone : </b> </label>
+                                            <div id="timezone">
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- --------XXX-------- -->
+
+                                    <!-- ---------------- -->
+                                    <div id="map"></div>
+
+                                    <!-- --------XXX-------- -->
+
+                                    <!-- ---------------- -->
+
+                                    <div class="secThree">
+
+                                        <div class="secThree1">
+                                            <label for="timezone">Time Zone : </label>
+                                            <div id="timezone">
+                                                12:00:00
+                                            </div>
+                                        </div>
+
+                                        <div class="secThree1">
+                                            <label for="dateTime">Date And Time : </label>
+                                            <div id="dateTime">
+                                                12:00:00 / 1apr2002
+                                            </div>
+                                        </div>
+                                        <div class="secThree1">
+                                            <label for="pincode">Pincode : </label>
+                                            <div id="pincode">
+                                                400606
+                                            </div>
+                                        </div>
+                                        <div class="secThree1">
+                                            <label for="message">Message : </label>
+                                            <div id="message">
+                                                hi
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <!-- --------XXX-------- -->
+                                    <!-- ---------------- -->
+                                    <div class="secFive">
+                                        <div class="secFiveMain" id="secFiveMain">
+
+                                        </div>
+                                    </div>
+                                    <!-- --------XXX-------- -->
+
+                                </div>
+                            </div>
+                            <!-- ===========XXX=================== -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+</body>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbPhwUwCFISaOwwJB3gHgf0eNKmmF2UWQ&callback=initMap" async
+    defer></script>
+<script>
+    let token1 = '98e89edc6ece8d';
+    var ipAddress = '';
+
+    function initMap(latitude, longitude) {
+        const map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 19.0728, lng: 72.8826 },
+            zoom: 8 
+        });
+    }
+
+    function getUserIP() {
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const userIP = data.ip;
+                ipAddress = data.ip;
+                document.getElementById('ip').value = data.ip;
+                getGeoInformation(userIP);
+            })
+            .catch(error => {
+                console.log('Error fetching IP address:', error);
+            });
+    }
+    const getGeoLocation = async () => {
+        const response = await fetch(`https://ipinfo.io/${ipAddress}?token=98e89edc6ece8d`);
+        const data = await response.json();
+        console.log(data);
+        document.getElementById('lat').innerHTML = data.loc.split(",")[0];
+        document.getElementById('long').innerHTML = data.loc.split(",")[1];
+        document.getElementById('city').innerHTML = data.city;
+        document.getElementById('region').innerHTML = data.region;
+        document.getElementById('organisation').innerHTML = data.org;
+        document.getElementById('timezone').innerHTML = data.timezone;
+
+        initMap(19.0728, 72.8826);
+        fetchPostOffices(data.postal)
+    }
+
+    getUserIP();
+
+    function fetchPostOffices(pincode) {
+        fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                const postOffices = data[0].PostOffice; 
+                displayPostOffices(postOffices);
+            })
+            .catch(error => {
+                console.log('Error fetching post offices:', error);
+            });
+    }
+    function displayPostOffices(postOffices) {
+        const postOfficeListElement = document.getElementById('secFiveMain');
+        postOfficeListElement.innerHTML = '';
+
+        postOffices.forEach(postOffice => {
+            const div = document.createElement('div');
+            div.classList.add('mainBox');
+            const nameDiv = document.createElement('div');
+            nameDiv.textContent = `Name: ${postOffice.Name}`;
+
+            const branchTypeDiv = document.createElement('div');
+            branchTypeDiv.textContent = `Branch Type: ${postOffice.BranchType}`;
+
+            const deliveryStatusDiv = document.createElement('div');
+            deliveryStatusDiv.textContent = `Delivery Status: ${postOffice.DeliveryStatus}`;
+
+            const districtDiv = document.createElement('div');
+            districtDiv.textContent = `District: ${postOffice.District}`;
+
+            const divisionDiv = document.createElement('div');
+            divisionDiv.textContent = `Division: ${postOffice.Division}`;
+
+            div.appendChild(nameDiv);
+            div.appendChild(branchTypeDiv);
+            div.appendChild(deliveryStatusDiv);
+            div.appendChild(districtDiv);
+            div.appendChild(divisionDiv);
+            postOfficeListElement.appendChild(div);
+        });
+
+    }
+
+
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=Api_Key&callback=displayMap" async defer></script>
+
+</html>
